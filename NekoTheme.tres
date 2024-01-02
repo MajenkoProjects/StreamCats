@@ -1,4 +1,16 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://do2ejls6cuihn"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://do2ejls6cuihn"]
+
+[ext_resource type="FontFile" uid="uid://74v75p3j8561" path="res://Fonts/C64_Pro-STYLE.ttf" id="1_unom1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_axa1a"]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color(1, 1, 1, 0.266667)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5km5x"]
 bg_color = Color(0.392157, 0.392157, 0.392157, 0.243137)
@@ -8,12 +20,17 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_05ekw"]
-bg_color = Color(1, 0.121569, 0, 1)
+bg_color = Color(0.54902, 0.0470588, 0, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [resource]
+Label/colors/font_color = Color(0, 0, 0, 1)
+Label/constants/line_spacing = 0
+Label/font_sizes/font_size = 8
+Label/fonts/font = ExtResource("1_unom1")
+Label/styles/normal = SubResource("StyleBoxFlat_axa1a")
 ProgressBar/styles/background = SubResource("StyleBoxFlat_5km5x")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_05ekw")

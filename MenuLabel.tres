@@ -1,7 +1,7 @@
 [gd_resource type="Theme" load_steps=16 format=3 uid="uid://b8ds072ddd3yk"]
 
 [ext_resource type="Texture2D" uid="uid://c3svpdfhsjwkj" path="res://Sprites/checked.png" id="1_6mqjv"]
-[ext_resource type="FontFile" uid="uid://74v75p3j8561" path="res://fonts/C64_TrueType_v1.2-STYLE/fonts/C64_Pro-STYLE.ttf" id="1_j1qy7"]
+[ext_resource type="FontFile" uid="uid://74v75p3j8561" path="res://Fonts/C64_Pro-STYLE.ttf" id="1_j1qy7"]
 [ext_resource type="Texture2D" uid="uid://cuev1c0ahq385" path="res://Sprites/unchecked.png" id="2_pdw2q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wanu1"]

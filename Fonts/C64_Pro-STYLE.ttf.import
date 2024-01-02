@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://74v75p3j8561"
-path="res://.godot/imported/C64_Pro-STYLE.ttf-391d852126e4de0b11049b263c21b343.fontdata"
+path="res://.godot/imported/C64_Pro-STYLE.ttf-1a32a741cf87910aafc20b821b11d70e.fontdata"
 
 [deps]
 
-source_file="res://fonts/C64_TrueType_v1.2-STYLE/fonts/C64_Pro-STYLE.ttf"
-dest_files=["res://.godot/imported/C64_Pro-STYLE.ttf-391d852126e4de0b11049b263c21b343.fontdata"]
+source_file="res://Fonts/C64_Pro-STYLE.ttf"
+dest_files=["res://.godot/imported/C64_Pro-STYLE.ttf-1a32a741cf87910aafc20b821b11d70e.fontdata"]
 
 [params]
 

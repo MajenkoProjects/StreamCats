@@ -1,6 +1,5 @@
-[gd_scene load_steps=5 format=3 uid="uid://cmdir5y805d2x"]
+[gd_scene load_steps=4 format=3 uid="uid://cmdir5y805d2x"]
 
-[ext_resource type="FontFile" uid="uid://74v75p3j8561" path="res://fonts/C64_TrueType_v1.2-STYLE/fonts/C64_Pro-STYLE.ttf" id="2_3tb4t"]
 [ext_resource type="Script" path="res://Avatar.gd" id="13_2chrl"]
 [ext_resource type="Theme" uid="uid://do2ejls6cuihn" path="res://NekoTheme.tres" id="27_7m6rv"]
 
@@ -25,21 +24,15 @@ one_shot = true
 
 [node name="Name" type="Label" parent="."]
 texture_filter = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -56.5
-offset_top = -44.0
-offset_right = 53.5
-offset_bottom = -20.0
+anchors_preset = -1
+offset_left = -46.0
+offset_top = -24.0
+offset_right = 46.0
+offset_bottom = -12.0
 grow_horizontal = 2
 size_flags_horizontal = 3
-size_flags_vertical = 6
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 21
-theme_override_fonts/font = ExtResource("2_3tb4t")
-theme_override_font_sizes/font_size = 8
+size_flags_vertical = 1
+theme = ExtResource("27_7m6rv")
 text = "MajenkoTech"
 horizontal_alignment = 1
 vertical_alignment = 1
