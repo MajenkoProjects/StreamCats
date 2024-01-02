@@ -1,0 +1,42 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Stream Cats"
+run/main_scene="res://Main.tscn"
+config/features=PackedStringArray("4.2", "Forward Plus")
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/show_image=false
+config/icon="res://Sprites/Neko/awake.png"
+
+[display]
+
+window/size/viewport_width=960
+window/size/viewport_height=540
+window/size/resizable=false
+window/per_pixel_transparency/allowed=true
+
+[filesystem]
+
+import/blender/enabled=false
+
+[gui]
+
+theme/default_font_antialiasing=2
+
+[rendering]
+
+anti_aliasing/screen_space_roughness_limiter/enabled=false
+environment/defaults/default_clear_color=Color(0.290196, 0.290196, 0.290196, 1)
+anti_aliasing/quality/msaa_2d=1
+anti_aliasing/quality/msaa_3d=1
+viewport/transparent_background=true
+anti_aliasing/quality/screen_space_aa=1

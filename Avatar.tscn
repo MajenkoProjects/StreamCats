@@ -1,0 +1,332 @@
+[gd_scene load_steps=30 format=3 uid="uid://cmdir5y805d2x"]
+
+[ext_resource type="FontFile" uid="uid://74v75p3j8561" path="res://fonts/C64_TrueType_v1.2-STYLE/fonts/C64_Pro-STYLE.ttf" id="2_3tb4t"]
+[ext_resource type="Texture2D" uid="uid://cc3okglhjfaib" path="res://Sprites/Neko/mati2.png" id="3_leryn"]
+[ext_resource type="Texture2D" uid="uid://50mjga1sxvwm" path="res://Sprites/Neko/mati3.png" id="4_xg3x4"]
+[ext_resource type="Texture2D" uid="uid://cgwrm2psc7ub1" path="res://Sprites/Neko/ltogi1.png" id="7_8lb36"]
+[ext_resource type="Texture2D" uid="uid://dvykco1oe1kbk" path="res://Sprites/Neko/upleft1.png" id="7_114ta"]
+[ext_resource type="Texture2D" uid="uid://ci5q2keud3oj3" path="res://Sprites/Neko/ltogi2.png" id="8_h4wfn"]
+[ext_resource type="Texture2D" uid="uid://bl3p0daede3wd" path="res://Sprites/Neko/upleft2.png" id="8_kboco"]
+[ext_resource type="Texture2D" uid="uid://7l2xnu42ovbt" path="res://Sprites/Neko/dwleft2.png" id="9_30dt2"]
+[ext_resource type="Texture2D" uid="uid://bubqk37tf55w4" path="res://Sprites/Neko/rtogi2.png" id="9_cm70y"]
+[ext_resource type="Texture2D" uid="uid://ckoguy07j2wdq" path="res://Sprites/Neko/rtogi1.png" id="10_6obcl"]
+[ext_resource type="Texture2D" uid="uid://h7jshoktcgb6" path="res://Sprites/Neko/dwleft1.png" id="10_nkua1"]
+[ext_resource type="Texture2D" uid="uid://bvpv3dpe4be8p" path="res://Sprites/Neko/upright1.png" id="11_o473s"]
+[ext_resource type="Texture2D" uid="uid://b38u71q12sp17" path="res://Sprites/Neko/upright2.png" id="12_3ijut"]
+[ext_resource type="Texture2D" uid="uid://dxhsgyoxip2og" path="res://Sprites/Neko/dwright2.png" id="13_1w1mj"]
+[ext_resource type="Script" path="res://Avatar.gd" id="13_2chrl"]
+[ext_resource type="Texture2D" uid="uid://bgotacqphf7n4" path="res://Sprites/Neko/dwright1.png" id="14_apxpb"]
+[ext_resource type="Texture2D" uid="uid://dixd8hyp6un8t" path="res://Sprites/Neko/left1.png" id="15_gb1th"]
+[ext_resource type="Texture2D" uid="uid://cd135n84q1320" path="res://Sprites/Neko/left2.png" id="16_lbhlk"]
+[ext_resource type="Texture2D" uid="uid://dl7vvyty8ugsq" path="res://Sprites/Neko/right1.png" id="17_16o7n"]
+[ext_resource type="Texture2D" uid="uid://b36gfh7ow8yki" path="res://Sprites/Neko/right2.png" id="18_11drw"]
+[ext_resource type="Texture2D" uid="uid://c0lwsq5hctjk2" path="res://Sprites/Neko/kaki1.png" id="19_eyw8j"]
+[ext_resource type="Texture2D" uid="uid://dt52bgy2ubdop" path="res://Sprites/Neko/kaki2.png" id="20_a0e7y"]
+[ext_resource type="Texture2D" uid="uid://6lu8lyuaj0e" path="res://Sprites/Neko/jare2.png" id="21_bjyb2"]
+[ext_resource type="Texture2D" uid="uid://evntb7kkt0mq" path="res://Sprites/Neko/sleep1.png" id="22_mlqmy"]
+[ext_resource type="Texture2D" uid="uid://cb2u733hqfqh8" path="res://Sprites/Neko/sleep2.png" id="23_2p88y"]
+[ext_resource type="Texture2D" uid="uid://dx3xc1pq2linb" path="res://Sprites/Neko/awake.png" id="24_jqngt"]
+[ext_resource type="Theme" uid="uid://do2ejls6cuihn" path="res://NekoTheme.tres" id="27_7m6rv"]
+[ext_resource type="Texture2D" uid="uid://okymuimrvc5e" path="res://Sprites/Neko/up2.png" id="27_q5ffk"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8vpnx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_leryn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_xg3x4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_leryn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_mlqmy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_2p88y")
+}],
+"loop": false,
+"name": &"Enter Sleep",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_8lb36")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_h4wfn")
+}],
+"loop": true,
+"name": &"Fight Left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_cm70y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_6obcl")
+}],
+"loop": true,
+"name": &"Fight Right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_114ta")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_kboco")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_30dt2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_nkua1")
+}],
+"loop": false,
+"name": &"Jump Left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_o473s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_3ijut")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_1w1mj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_apxpb")
+}],
+"loop": false,
+"name": &"Jump Right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_xg3x4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_jqngt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_xg3x4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_jqngt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_xg3x4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_jqngt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_xg3x4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_jqngt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_xg3x4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_jqngt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_xg3x4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_jqngt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_xg3x4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_leryn")
+}],
+"loop": false,
+"name": &"Lose",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_gb1th")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_lbhlk")
+}],
+"loop": true,
+"name": &"Run Left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_16o7n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_11drw")
+}],
+"loop": true,
+"name": &"Run Right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("19_eyw8j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_a0e7y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_bjyb2")
+}],
+"loop": true,
+"name": &"Sit",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("22_mlqmy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_2p88y")
+}],
+"loop": true,
+"name": &"Sleep",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("22_mlqmy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_2p88y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_leryn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_jqngt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_leryn")
+}],
+"loop": false,
+"name": &"Wake",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_kboco")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_q5ffk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_3ijut")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_q5ffk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_kboco")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_q5ffk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_3ijut")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_q5ffk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_kboco")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_q5ffk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_3ijut")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_q5ffk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_kboco")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_leryn")
+}],
+"loop": false,
+"name": &"Win",
+"speed": 5.0
+}]
+
+[node name="Avatar" type="Sprite2D"]
+texture_filter = 1
+script = ExtResource("13_2chrl")
+
+[node name="NameTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="SuicideTimer" type="Timer" parent="."]
+wait_time = 60.0
+one_shot = true
+
+[node name="FightTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AttackTimer" type="Timer" parent="."]
+
+[node name="Name" type="Label" parent="."]
+texture_filter = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -56.5
+offset_top = -44.0
+offset_right = 53.5
+offset_bottom = -20.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 21
+theme_override_fonts/font = ExtResource("2_3tb4t")
+theme_override_font_sizes/font_size = 8
+text = "MajenkoTech"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Neko" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_8vpnx")
+animation = &"Lose"
+
+[node name="HP" type="ProgressBar" parent="."]
+visible = false
+offset_left = -15.0
+offset_top = 16.0
+offset_right = 15.0
+offset_bottom = 19.0
+theme = ExtResource("27_7m6rv")
+max_value = 10.0
+step = 1.0
+value = 10.0
+rounded = true
+show_percentage = false
+
+[connection signal="timeout" from="NameTimer" to="." method="_on_name_timer_timeout"]
+[connection signal="timeout" from="SuicideTimer" to="." method="_on_suicide_timer_timeout"]
+[connection signal="timeout" from="FightTimer" to="." method="_on_fight_timer_timeout"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="animation_finished" from="Neko" to="." method="_on_neko_animation_finished"]
