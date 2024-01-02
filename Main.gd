@@ -193,41 +193,41 @@ func run_command(avatar, command):
 			avatar.wake()
 		"!jump":
 			avatar.jump()
-#		"!attack":
-#			var target = argv[1].to_lower()
-#			if (target[0] == "@"):
-#				target = target.substr(1)
-#			if (target == "random"):
-#				target = Database.Present[randi() % Database.Present.size()]
-#			print("Starting attack with " + target)
-#			if (Database.Present.has(target)):
-#				print("Found that user")
-#				avatar.start_challenge(target)
-#				netsend("PRIVMSG " + Database.Channel + " :" + avatar.getName() + " has challenged @" + target + " to a cat fight. " + target + " must !accept within 30 seconds.")
-#			else:
-#				print("No such user")
-#		"!accept":
-#			var foundavatar = null
-#			for av in Database.Avatars:
-#				if (Database.Avatars[av].get_challenge() == avatar.getName()):
-#					print("Found challenge with " + av)
-#					foundavatar = av
-#			if (foundavatar == null):
-#				print("Cannot find attack")								
-#			else:
-#				var them = Database.Avatars[foundavatar]
-#							
-#				var x1 = avatar.getLocation()
-#				var x2 = them.getLocation()
-#				var midpoint = 0
-#				if (x1 > x2):
-#					midpoint = x2 + ((x1 - x2) / 2)
-#					avatar.startFight(them, midpoint + 16)
-#					them.startFight(avatar, midpoint - 16)
-#				else:
-#					midpoint = x1 + ((x2 - x1) / 2)
-#					avatar.startFight(them, midpoint - 16)
-#					them.startFight(avatar, midpoint + 16)
+		"!attack":
+			var target = argv[1].to_lower()
+			if (target[0] == "@"):
+				target = target.substr(1)
+			if (target == "random"):
+				target = Database.Present[randi() % Database.Present.size()]
+			print("Starting attack with " + target)
+			if (Database.Present.has(target)):
+				print("Found that user")
+				avatar.start_challenge(target)
+				netsend("PRIVMSG " + Database.Channel + " :" + avatar.getName() + " has challenged @" + target + " to a cat fight. " + target + " must !accept within 30 seconds.")
+			else:
+				print("No such user")
+		"!accept":
+			var foundavatar = null
+			for av in Database.Avatars:
+				if (Database.Avatars[av].get_challenge() == avatar.getName()):
+					print("Found challenge with " + av)
+					foundavatar = av
+			if (foundavatar == null):
+				print("Cannot find attack")								
+			else:
+				var them = Database.Avatars[foundavatar]
+							
+				var x1 = avatar.getLocation()
+				var x2 = them.getLocation()
+				var midpoint = 0
+				if (x1 > x2):
+					midpoint = x2 + ((x1 - x2) / 2)
+					avatar.startFight(them, midpoint + 16)
+					them.startFight(avatar, midpoint - 16)
+				else:
+					midpoint = x1 + ((x2 - x1) / 2)
+					avatar.startFight(them, midpoint - 16)
+					them.startFight(avatar, midpoint + 16)
 
 func process_message(message):
 	var re = RegEx.new()
