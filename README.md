@@ -21,4 +21,7 @@ Chat commands:
 * !attack <user> - Challenge another cat to a fight
 * !accept - Accept a fight challenge
 
+Avatars
+-------
 
+You can now import more avatars. Samples and specification [here](https://github.com/MajenkoProjects/StreamCatsAvatars)
