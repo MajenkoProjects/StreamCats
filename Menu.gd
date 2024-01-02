@@ -37,6 +37,9 @@ func set_name_timeout(t):
 func set_cat_timeout(t):
 	$Cat/Timeout.get_line_edit().text = str(t)
 
+func set_attacks(a):
+	$Attacks.button_pressed = a
+
 func get_username():
 	return $Username/IRCUsername.text
 
@@ -60,6 +63,9 @@ func get_name_timeout():
 
 func get_cat_timeout():
 	return int($Cat/Timeout.get_line_edit().text)
+
+func get_attacks():
+	return $Attacks.button_pressed
 
 func _on_ok_pressed():
 	close_menu.emit()

@@ -110,6 +110,7 @@ func _input(event):
 			$Popup/Menu.set_autoconnect(Database.AutoConnect)
 			$Popup/Menu.set_name_timeout(Database.NameTimeout)
 			$Popup/Menu.set_cat_timeout(Database.CatTimeout)
+			$Popup/Menu.set_attacks(Database.AttacksEnabled)
 			$Popup.show()
 
 func _on_close_menu():
@@ -121,6 +122,7 @@ func _on_close_menu():
 	Database.AutoConnect = $Popup/Menu.get_autoconnect()
 	Database.NameTimeout = $Popup/Menu.get_name_timeout()
 	Database.CatTimeout = $Popup/Menu.get_cat_timeout()
+	Database.AttacksEnabled = $Popup/Menu.get_attacks()
 	$Popup.hide()
 	ResourceSaver.save(Database, save_path)
 
@@ -194,40 +196,42 @@ func run_command(avatar, command):
 		"!jump":
 			avatar.jump()
 		"!attack":
-			var target = argv[1].to_lower()
-			if (target[0] == "@"):
-				target = target.substr(1)
-			if (target == "random"):
-				target = Database.Present[randi() % Database.Present.size()]
-			print("Starting attack with " + target)
-			if (Database.Present.has(target)):
-				print("Found that user")
-				avatar.start_challenge(target)
-				netsend("PRIVMSG " + Database.Channel + " :" + avatar.getName() + " has challenged @" + target + " to a cat fight. " + target + " must !accept within 30 seconds.")
-			else:
-				print("No such user")
-		"!accept":
-			var foundavatar = null
-			for av in Database.Avatars:
-				if (Database.Avatars[av].get_challenge() == avatar.getName()):
-					print("Found challenge with " + av)
-					foundavatar = av
-			if (foundavatar == null):
-				print("Cannot find attack")								
-			else:
-				var them = Database.Avatars[foundavatar]
-							
-				var x1 = avatar.getLocation()
-				var x2 = them.getLocation()
-				var midpoint = 0
-				if (x1 > x2):
-					midpoint = x2 + ((x1 - x2) / 2)
-					avatar.startFight(them, midpoint + 16)
-					them.startFight(avatar, midpoint - 16)
+			if (Database.AttacksEnabled):
+				var target = argv[1].to_lower()
+				if (target[0] == "@"):
+					target = target.substr(1)
+				if (target == "random"):
+					target = Database.Present[randi() % Database.Present.size()]
+				print("Starting attack with " + target)
+				if (Database.Present.has(target)):
+					print("Found that user")
+					avatar.start_challenge(target)
+					netsend("PRIVMSG " + Database.Channel + " :" + avatar.getName() + " has challenged @" + target + " to a cat fight. " + target + " must !accept within 30 seconds.")
 				else:
-					midpoint = x1 + ((x2 - x1) / 2)
-					avatar.startFight(them, midpoint - 16)
-					them.startFight(avatar, midpoint + 16)
+					print("No such user")
+		"!accept":
+			if (Database.AttacksEnabled):
+				var foundavatar = null
+				for av in Database.Avatars:
+					if (Database.Avatars[av].get_challenge() == avatar.getName()):
+						print("Found challenge with " + av)
+						foundavatar = av
+				if (foundavatar == null):
+					print("Cannot find attack")								
+				else:
+					var them = Database.Avatars[foundavatar]
+								
+					var x1 = avatar.getLocation()
+					var x2 = them.getLocation()
+					var midpoint = 0
+					if (x1 > x2):
+						midpoint = x2 + ((x1 - x2) / 2)
+						avatar.startFight(them, midpoint + 16)
+						them.startFight(avatar, midpoint - 16)
+					else:
+						midpoint = x1 + ((x2 - x1) / 2)
+						avatar.startFight(them, midpoint - 16)
+						them.startFight(avatar, midpoint + 16)
 
 func process_message(message):
 	var re = RegEx.new()
@@ -283,7 +287,6 @@ func process_message(message):
 		if (Database.Present.has(username)):
 			Database.Present.erase(username)
 		return
-
 
 func _on_timer_timeout():
 	$Label.text = str(Database.Avatars.size()) + " avatars"

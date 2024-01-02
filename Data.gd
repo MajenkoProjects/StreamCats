@@ -13,3 +13,4 @@ var Present = []
 @export var AutoConnect = true
 @export var NameTimeout = 10
 @export var CatTimeout = 60
+@export var AttacksEnabled = true

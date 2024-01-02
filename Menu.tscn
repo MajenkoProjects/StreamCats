@@ -205,6 +205,18 @@ offset_bottom = 336.0
 theme = ExtResource("1_apyta")
 text = "seconds"
 
+[node name="Attacks" type="CheckBox" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.012
+anchor_bottom = 0.044
+offset_left = 592.0
+offset_top = 312.0
+offset_right = 914.48
+offset_bottom = 320.24
+theme = ExtResource("1_apyta")
+text = "Enable Attacks"
+
 [connection signal="pressed" from="Connect" to="." method="_on_connect_pressed"]
 [connection signal="pressed" from="Disconnect" to="." method="_on_disconnect_pressed"]
 [connection signal="pressed" from="Ok" to="." method="_on_ok_pressed"]
