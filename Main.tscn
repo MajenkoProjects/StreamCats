@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bgqbglgs5djh1"]
+[gd_scene load_steps=3 format=3 uid="uid://bgqbglgs5djh1"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_we8o1"]
 [ext_resource type="PackedScene" uid="uid://bl86hbug4i4oq" path="res://Menu.tscn" id="2_p7b8j"]
-[ext_resource type="Theme" uid="uid://b8ds072ddd3yk" path="res://MenuLabel.tres" id="3_np105"]
 
 [node name="Main Scene" type="Node2D"]
 script = ExtResource("1_we8o1")
@@ -25,16 +24,5 @@ offset_bottom = 536.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Label" type="Label" parent="."]
-offset_left = 58.0
-offset_top = 40.0
-offset_right = 504.0
-offset_bottom = 64.0
-theme = ExtResource("3_np105")
-
-[node name="Timer" type="Timer" parent="."]
-autostart = true
-
 [connection signal="timeout" from="IRCTimer" to="." method="_on_irc_timer_timeout"]
 [connection signal="timeout" from="SaveTimer" to="." method="_on_save_timer_timeout"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

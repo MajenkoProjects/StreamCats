@@ -72,7 +72,7 @@ func _process(_delta):
 			
 			process_message(left)
 
-func _on_avatar_died(av):
+func _on_avatar_died(_av):
 	pass
 	
 func _on_irc_timer_timeout():
@@ -288,5 +288,5 @@ func process_message(message):
 			Database.Present.erase(username)
 		return
 
-func _on_timer_timeout():
-	$Label.text = str(Database.Avatars.size()) + " avatars"
+
+
