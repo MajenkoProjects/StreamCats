@@ -4,6 +4,8 @@ Stream Cats
 Small Godot system like Stream Avatars (but FOSS) which uses Oneko cats to
 display your Twitch stream chatters on your stream.
 
+![](Screenshots/cats.png)
+
 Using
 -----
 
@@ -18,3 +20,5 @@ Chat commands:
 * !color #rrggbb - Change the color of your cat
 * !attack <user> - Challenge another cat to a fight
 * !accept - Accept a fight challenge
+
+
