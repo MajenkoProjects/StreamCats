@@ -14,3 +14,4 @@ var Present = []
 @export var NameTimeout = 10
 @export var CatTimeout = 60
 @export var AttacksEnabled = true
+@export var SelectedAvatar = "Neko"

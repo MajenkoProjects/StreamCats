@@ -289,3 +289,6 @@ func setData(d):
 	miscData = d
 	if miscData.has("display-name"):
 		$Name.text = miscData["display-name"]
+
+func set_sprite_frames(f):
+	$Neko.set_sprite_frames(f)

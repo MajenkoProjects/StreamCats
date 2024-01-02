@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgwrm2psc7ub1"
-path="res://.godot/imported/ltogi1.png-1b7eba9607fd526f96ec233ab42b46dc.ctex"
+uid="uid://bwdy4bthqhghr"
+path="res://.godot/imported/awake.png-8d5d06db7bd304fbb7465954b4857e98.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Neko/ltogi1.png"
-dest_files=["res://.godot/imported/ltogi1.png-1b7eba9607fd526f96ec233ab42b46dc.ctex"]
+source_file="res://Sprites/awake.png"
+dest_files=["res://.godot/imported/awake.png-8d5d06db7bd304fbb7465954b4857e98.ctex"]
 
 [params]
 

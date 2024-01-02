@@ -1,8 +1,8 @@
-[gd_resource type="Theme" load_steps=15 format=3 uid="uid://b8ds072ddd3yk"]
+[gd_resource type="Theme" load_steps=16 format=3 uid="uid://b8ds072ddd3yk"]
 
+[ext_resource type="Texture2D" uid="uid://c3svpdfhsjwkj" path="res://Sprites/checked.png" id="1_6mqjv"]
 [ext_resource type="FontFile" uid="uid://74v75p3j8561" path="res://fonts/C64_TrueType_v1.2-STYLE/fonts/C64_Pro-STYLE.ttf" id="1_j1qy7"]
-[ext_resource type="Texture2D" uid="uid://ex100yraws3y" path="res://Sprites/checked.png" id="1_koip6"]
-[ext_resource type="Texture2D" uid="uid://iv0803w4chp1" path="res://Sprites/unchecked.png" id="2_f0038"]
+[ext_resource type="Texture2D" uid="uid://cuev1c0ahq385" path="res://Sprites/unchecked.png" id="2_pdw2q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wanu1"]
 bg_color = Color(0.219608, 0.137255, 0.0627451, 1)
@@ -158,6 +158,23 @@ expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8p1qy"]
+bg_color = Color(0.0156863, 0.137255, 0.0823529, 1)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.2, 0.443137, 0.239216, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
 [resource]
 default_font = ExtResource("1_j1qy7")
 default_font_size = 24
@@ -171,17 +188,20 @@ Button/styles/hover = SubResource("StyleBoxFlat_ertuq")
 Button/styles/normal = SubResource("StyleBoxFlat_51jsr")
 Button/styles/pressed = SubResource("StyleBoxFlat_3yish")
 CheckBox/colors/font_color = Color(0.694118, 0.490196, 0.301961, 1)
-CheckBox/icons/checked = ExtResource("1_koip6")
-CheckBox/icons/checked_disabled = ExtResource("1_koip6")
-CheckBox/icons/unchecked = ExtResource("2_f0038")
-CheckBox/icons/unchecked_disabled = ExtResource("2_f0038")
+CheckBox/icons/checked = ExtResource("1_6mqjv")
+CheckBox/icons/checked_disabled = ExtResource("1_6mqjv")
+CheckBox/icons/unchecked = ExtResource("2_pdw2q")
+CheckBox/icons/unchecked_disabled = ExtResource("2_pdw2q")
 CheckBox/styles/focus = SubResource("StyleBoxFlat_o86py")
 CheckBox/styles/hover = SubResource("StyleBoxFlat_gency")
 CheckBox/styles/hover_pressed = SubResource("StyleBoxFlat_8cy61")
 CheckBox/styles/normal = SubResource("StyleBoxFlat_r1foh")
 CheckBox/styles/pressed = SubResource("StyleBoxFlat_labva")
 Label/colors/font_color = Color(0.694118, 0.490196, 0.301961, 1)
+LineEdit/colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 LineEdit/styles/focus = SubResource("StyleBoxFlat_0mb6r")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_g2st4")
+OptionButton/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+OptionButton/styles/normal = SubResource("StyleBoxFlat_8p1qy")
 TextEdit/colors/background_color = Color(0, 0.243137, 0.2, 1)
 TextEdit/colors/font_color = Color(0.776471, 0.776471, 0.776471, 1)

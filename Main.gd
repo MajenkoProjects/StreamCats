@@ -12,6 +12,7 @@ var dataQueueString = ""
 
 var Database: Data
 
+var Avatars = {}
 
 enum {
 	NET_IDLE,
@@ -25,18 +26,26 @@ var netmode = NET_IDLE
 func _ready():
 	#Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	
+	load_avatars("res://Avatars")
+	
+	if !FileAccess.file_exists("user://Avatars/Neko/Avatar.ini"):
+		import_avatar("res://Neko.Avatar")
+	
+	
+	load_avatars("user://Avatars")
+	
 	if ResourceLoader.exists(save_path):
 		Database = load(save_path)
 	else:
 		Database = Data.new()
 
+
 	$Popup/Menu.close_menu.connect(_on_close_menu)
 	$Popup/Menu.connect_pressed.connect(_on_connect_pressed)
 	$Popup/Menu.disconnect_pressed.connect(_on_disconnect_pressed)
-
+	$Popup/Menu.avatar_imported.connect(_on_avatar_imported)
 
 func _process(_delta):
-	
 	match netmode:
 		NET_IDLE:
 			if Database.AutoConnect:
@@ -95,13 +104,13 @@ func _on_irc_timer_timeout():
 				netmode = NET_CONNECTED
 				$IRCTimer.stop()
 
-
 func _on_save_timer_timeout():
 	ResourceSaver.save(Database, save_path)
 
 func _input(event):
 	if (event is InputEventKey):
 		if (event.pressed and event.keycode == KEY_ESCAPE):
+			$Popup/Menu.set_avatars(Avatars.keys())
 			$Popup/Menu.set_username(Database.Username)
 			$Popup/Menu.set_password(Database.Password)
 			$Popup/Menu.set_hostname(Database.Server)
@@ -111,6 +120,7 @@ func _input(event):
 			$Popup/Menu.set_name_timeout(Database.NameTimeout)
 			$Popup/Menu.set_cat_timeout(Database.CatTimeout)
 			$Popup/Menu.set_attacks(Database.AttacksEnabled)
+			$Popup/Menu.set_avatar(Database.SelectedAvatar)
 			$Popup.show()
 
 func _on_close_menu():
@@ -123,6 +133,9 @@ func _on_close_menu():
 	Database.NameTimeout = $Popup/Menu.get_name_timeout()
 	Database.CatTimeout = $Popup/Menu.get_cat_timeout()
 	Database.AttacksEnabled = $Popup/Menu.get_attacks()
+	Database.SelectedAvatar = $Popup/Menu.get_avatar()
+	for a in Database.Avatars:
+		Database.Avatars[a].set_sprite_frames(Avatars[Database.SelectedAvatar])
 	$Popup.hide()
 	ResourceSaver.save(Database, save_path)
 
@@ -171,7 +184,7 @@ func get_avatar(username:String, data):
 		a.avatar_died.connect(_on_avatar_died)
 		a.fight_timeout.connect(_on_fight_timeout)
 		a.fight_lost.connect(_on_fight_lost)
-
+		a.set_sprite_frames(Avatars[Database.SelectedAvatar])
 		if Database.Colours.has(username):
 			a.setColour(Database.Colours[username])
 		else:
@@ -288,5 +301,90 @@ func process_message(message):
 			Database.Present.erase(username)
 		return
 
+func load_avatar(path):
+	var conf = ConfigFile.new()
+	
+
+	if (conf.load(path + "/" + "Avatar.ini") != OK):
+		print("Error loading config file")
 
 
+
+
+	var anim = SpriteFrames.new()
+	
+	var aname = conf.get_value("general", "name")
+	load_animation(path, anim, conf, "Enter Sleep", false)
+	load_animation(path, anim, conf, "Fight Left", true)
+	load_animation(path, anim, conf, "Fight Right", true)
+	load_animation(path, anim, conf, "Jump Left", false)
+	load_animation(path, anim, conf, "Jump Right", false)
+	load_animation(path, anim, conf, "Lose", false)
+	load_animation(path, anim, conf, "Run Left", true)
+	load_animation(path, anim, conf, "Run Right", true)
+	load_animation(path, anim, conf, "Sit", false)
+	load_animation(path, anim, conf, "Sleep", true)
+	load_animation(path, anim, conf, "Wake", false)
+	load_animation(path, anim, conf, "Win", false)
+	
+	Avatars[aname] = anim
+	
+func load_animation(path, anim, conf, aname, loop):
+	var sec = aname.replace(" ", "").to_lower()
+	anim.add_animation(aname)
+	anim.set_animation_speed(aname, conf.get_value(sec, "speed"))
+	anim.set_animation_loop(aname, loop)
+	var frames:Array = conf.get_value(sec, "frames")
+	for frame in frames:
+#		anim.add_frame(aname, ImageTexture.create_from_image(load(path + "/" + frame)))
+		anim.add_frame(aname, ImageTexture.create_from_image(Image.load_from_file(path + "/" + frame)))
+
+func load_avatars(root):
+	var dir = DirAccess.open(root)
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if dir.current_is_dir():
+				if FileAccess.file_exists(root + "/" + file_name + "/Avatar.ini"):
+					load_avatar(root + "/" + file_name )
+			file_name = dir.get_next()
+					
+func dir_contents(path):
+	var dir = DirAccess.open(path)
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if dir.current_is_dir():
+				print("Found directory: " + file_name)
+			else:
+				print("Found file: " + file_name)
+			file_name = dir.get_next()
+	else:
+		print("An error occurred when trying to access the path.")
+
+func _on_avatar_imported(path):
+	load_avatar(path)
+	$Popup/Menu.set_avatars(Avatars.keys())
+
+func import_avatar(path):
+	var zip = ZIPReader.new()
+	var err = zip.open(path)
+	if (err != OK):
+		return
+	if (!zip.file_exists("Avatar.ini")):
+		return
+	var info = zip.read_file("Avatar.ini")
+	var conf = ConfigFile.new()
+	conf.parse(info.get_string_from_ascii())
+	if (!conf.has_section_key("general", "name")):
+		return
+	var aname = conf.get_value("general", "name")
+	DirAccess.make_dir_recursive_absolute("user://Avatars/" + aname)
+	for f in zip.get_files():
+		var infile = zip.read_file(f)
+		var outname = "user://Avatars/" + aname + "/" + f
+		var outfile = FileAccess.open(outname, FileAccess.WRITE)
+		outfile.store_buffer(infile)
+		outfile.close()
