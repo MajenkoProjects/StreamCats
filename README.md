@@ -16,11 +16,11 @@ Chat commands:
 
 * !jump - Make your cat jump.
 * !sleep - Make your cat go to sleep
-* !wake = Wake up your cat again
-* !attack <user> - Challenge another cat to a fight
+* !wake - Wake up your cat again
+* !attack [user] - Challenge another cat to a fight
 * !accept - Accept a fight challenge
 * !avatars - List the available avatars
-* !avatar <name> - Select a new avatar
+* !avatar [name] - Select a new avatar
 
 Avatars
 -------
