@@ -20,6 +20,7 @@ var miscData = {}
 var username = ""
 
 var alive = false
+var spriteIsColor = false
 
 enum {
 	MODE_SIT,
@@ -170,7 +171,10 @@ func prod(nt:int, ct:int):
 	set_alive(true)
 
 func setColour(colour):
-	$Neko.modulate = colour
+	if (spriteIsColor):
+		$Neko.modulate = Color.WHITE
+	else:
+		$Neko.modulate = colour
 
 
 func _on_neko_animation_finished():
@@ -242,13 +246,9 @@ func startFight(user, loc):
 	mode = MODE_FIGHT_START
 	if (position.x > loc):
 		fightdistance = position.x - loc
-		print (position.x - loc)
-		print(lstep)
 		$Neko.play("Run Left")
 	else:
 		fightdistance = loc - position.x
-		print(loc - position.x)
-		print(lstep)
 		$Neko.play("Run Right")
 		
 	$FightTimer.stop()
@@ -292,3 +292,6 @@ func setData(d):
 
 func set_sprite_frames(f):
 	$Neko.set_sprite_frames(f)
+	
+func set_sprite_color(b):
+	spriteIsColor = b

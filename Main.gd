@@ -13,6 +13,7 @@ var dataQueueString = ""
 var Database: Data
 
 var Avatars = {}
+var AvatarConfigs = {}
 
 enum {
 	NET_IDLE,
@@ -136,6 +137,9 @@ func _on_close_menu():
 	Database.SelectedAvatar = $Popup/Menu.get_avatar()
 	for a in Database.Avatars:
 		Database.Avatars[a].set_sprite_frames(Avatars[Database.SelectedAvatar])
+		Database.Avatars[a].set_sprite_color(AvatarConfigs[Database.SelectedAvatar].get_value("general", "color", false))
+		Database.Avatars[a].setColour(Database.Colours[a])
+
 	$Popup.hide()
 	ResourceSaver.save(Database, save_path)
 
@@ -159,6 +163,7 @@ func _on_fight_timeout(avatar, target):
 	netsend("PRIVMSG " + Database.Channel + " :The fight between " + avatar.getName() + " and " + target + " timed out")
 
 func netsend(msg):
+	print(">>> " + msg)
 	msg += "\r\n"
 	irc.put_data(msg.to_ascii_buffer())
 
@@ -185,6 +190,7 @@ func get_avatar(username:String, data):
 		a.fight_timeout.connect(_on_fight_timeout)
 		a.fight_lost.connect(_on_fight_lost)
 		a.set_sprite_frames(Avatars[Database.SelectedAvatar])
+		a.set_sprite_color(AvatarConfigs[Database.SelectedAvatar].get_value("general", "color", false))
 		if Database.Colours.has(username):
 			a.setColour(Database.Colours[username])
 		else:
@@ -215,22 +221,19 @@ func run_command(avatar, command):
 					target = target.substr(1)
 				if (target == "random"):
 					target = Database.Present[randi() % Database.Present.size()]
-				print("Starting attack with " + target)
 				if (Database.Present.has(target)):
-					print("Found that user")
 					avatar.start_challenge(target)
 					netsend("PRIVMSG " + Database.Channel + " :" + avatar.getName() + " has challenged @" + target + " to a cat fight. " + target + " must !accept within 30 seconds.")
 				else:
-					print("No such user")
+					netsend("PRIVMSG " + Database.Channel + " :@" + avatar.getName() + " - Sorry, that user is not known")
 		"!accept":
 			if (Database.AttacksEnabled):
 				var foundavatar = null
 				for av in Database.Avatars:
 					if (Database.Avatars[av].get_challenge() == avatar.getName()):
-						print("Found challenge with " + av)
 						foundavatar = av
 				if (foundavatar == null):
-					print("Cannot find attack")								
+					netsend("PRIVMSG " + Database.Channel + " :@" + avatar.getName() + " - Sorry, you have not been challenged")
 				else:
 					var them = Database.Avatars[foundavatar]
 								
@@ -249,7 +252,7 @@ func run_command(avatar, command):
 func process_message(message):
 	var re = RegEx.new()
 	var res
-		
+	print("<<< " + message)
 	re.compile("^PING")
 	if (re.search(message)):
 		netsend("PONG :StreamCats")	
@@ -310,7 +313,6 @@ func load_avatar(path):
 
 
 
-
 	var anim = SpriteFrames.new()
 	
 	var aname = conf.get_value("general", "name")
@@ -328,7 +330,8 @@ func load_avatar(path):
 	load_animation(path, anim, conf, "Win", false)
 	
 	Avatars[aname] = anim
-	
+	AvatarConfigs[aname] = conf
+
 func load_animation(path, anim, conf, aname, loop):
 	var sec = aname.replace(" ", "").to_lower()
 	anim.add_animation(aname)
@@ -336,7 +339,6 @@ func load_animation(path, anim, conf, aname, loop):
 	anim.set_animation_loop(aname, loop)
 	var frames:Array = conf.get_value(sec, "frames")
 	for frame in frames:
-#		anim.add_frame(aname, ImageTexture.create_from_image(load(path + "/" + frame)))
 		anim.add_frame(aname, ImageTexture.create_from_image(Image.load_from_file(path + "/" + frame)))
 
 func load_avatars(root):
