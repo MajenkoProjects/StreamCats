@@ -20,7 +20,6 @@ var miscData = {}
 var username = ""
 
 var alive = false
-var spriteIsColor = false
 
 enum {
 	MODE_SIT,
@@ -170,12 +169,6 @@ func prod(nt:int, ct:int):
 	$SuicideTimer.start(ct)
 	set_alive(true)
 
-func setColour(colour):
-	if (spriteIsColor):
-		$Neko.modulate = Color.WHITE
-	else:
-		$Neko.modulate = colour
-
 
 func _on_neko_animation_finished():
 	match mode:
@@ -293,5 +286,3 @@ func setData(d):
 func set_sprite_frames(f):
 	$Neko.set_sprite_frames(f)
 	
-func set_sprite_color(b):
-	spriteIsColor = b

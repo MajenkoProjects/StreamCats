@@ -4,7 +4,8 @@ class_name Data
 
 var Avatars = {}
 var Present = []
-@export var Colours = {}
+
+@export var WhichAvatar = {}
 @export var Username = ""
 @export var Password = ""
 @export var Channel = ""
@@ -14,4 +15,4 @@ var Present = []
 @export var NameTimeout = 10
 @export var CatTimeout = 60
 @export var AttacksEnabled = true
-@export var SelectedAvatar = "Neko"
+@export var SelectedAvatars = ["Neko"]

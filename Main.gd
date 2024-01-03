@@ -121,7 +121,7 @@ func _input(event):
 			$Popup/Menu.set_name_timeout(Database.NameTimeout)
 			$Popup/Menu.set_cat_timeout(Database.CatTimeout)
 			$Popup/Menu.set_attacks(Database.AttacksEnabled)
-			$Popup/Menu.set_avatar(Database.SelectedAvatar)
+			$Popup/Menu.set_avatar(Database.SelectedAvatars)
 			$Popup.show()
 
 func _on_close_menu():
@@ -134,12 +134,13 @@ func _on_close_menu():
 	Database.NameTimeout = $Popup/Menu.get_name_timeout()
 	Database.CatTimeout = $Popup/Menu.get_cat_timeout()
 	Database.AttacksEnabled = $Popup/Menu.get_attacks()
-	Database.SelectedAvatar = $Popup/Menu.get_avatar()
-	for a in Database.Avatars:
-		Database.Avatars[a].set_sprite_frames(Avatars[Database.SelectedAvatar])
-		Database.Avatars[a].set_sprite_color(AvatarConfigs[Database.SelectedAvatar].get_value("general", "color", false))
-		Database.Avatars[a].setColour(Database.Colours[a])
-
+	Database.SelectedAvatars = $Popup/Menu.get_avatar()
+	
+	for a in Database.Avatars.keys():
+		if !Database.SelectedAvatars.has(Database.WhichAvatar[a]):
+			Database.WhichAvatar[a] = Database.SelectedAvatars[randi() % Database.SelectedAvatars.size()]
+			Database.Avatars[a].set_sprite_frames(Avatars[Database.WhichAvatar[a]])
+			
 	$Popup.hide()
 	ResourceSaver.save(Database, save_path)
 
@@ -163,7 +164,7 @@ func _on_fight_timeout(avatar, target):
 	netsend("PRIVMSG " + Database.Channel + " :The fight between " + avatar.getName() + " and " + target + " timed out")
 
 func netsend(msg):
-	print(">>> " + msg)
+	#print(">>> " + msg)
 	msg += "\r\n"
 	irc.put_data(msg.to_ascii_buffer())
 
@@ -185,17 +186,18 @@ func get_avatar(username:String, data):
 		var a = Avatar.instantiate()
 		a.setName(username)
 		a.setData(data)
+
+		var avname = Database.SelectedAvatars[randi() % Database.SelectedAvatars.size()]
+		if (Database.WhichAvatar.has(username)):
+			avname = Database.WhichAvatar[username]
+			if (!Database.SelectedAvatars.has(avname)):
+				avname = Database.SelectedAvatars[randi() % Database.SelectedAvatars.size()]
+		Database.WhichAvatar[username] = avname
 		
 		a.avatar_died.connect(_on_avatar_died)
 		a.fight_timeout.connect(_on_fight_timeout)
 		a.fight_lost.connect(_on_fight_lost)
-		a.set_sprite_frames(Avatars[Database.SelectedAvatar])
-		a.set_sprite_color(AvatarConfigs[Database.SelectedAvatar].get_value("general", "color", false))
-		if Database.Colours.has(username):
-			a.setColour(Database.Colours[username])
-		else:
-			Database.Colours[username] = Color(randf(), randf() / 2, randf())
-			a.setColour(Database.Colours[username])							
+		a.set_sprite_frames(Avatars[avname])
 
 		Database.Avatars[username] = a
 		add_child(a)
@@ -203,11 +205,23 @@ func get_avatar(username:String, data):
 
 func run_command(avatar, command):
 	var argv = command.split(" ")
+	argv[0] = argv[0].to_lower()
 	match argv[0]:
-		"!color":
-			var c = Color(argv[1].strip_edges())
-			Database.Colours[avatar.getName()] = c
-			avatar.setColour(Database.Colours[avatar.getName()])
+		"!avatars":
+			var alist = ""
+			for a in Database.SelectedAvatars:
+				if (!alist == ""):
+					alist += ", "
+				alist += "\""
+				alist += a
+				alist += "\""
+			netsend("PRIVMSG " + Database.Channel + " :Available avatars: " + alist)
+		"!avatar":
+			if ! Database.SelectedAvatars.has(argv[1]):
+				netsend("PRIVMSG " + Database.Channel + " :Sorry, @" + avatar.getName() + ", that avatar is unknown.")
+				return
+			Database.WhichAvatar[avatar.getName()] = argv[1]
+			avatar.set_sprite_frames(Avatars[argv[1]])
 		"!sleep":
 			avatar.sleep()
 		"!wake":
@@ -252,7 +266,7 @@ func run_command(avatar, command):
 func process_message(message):
 	var re = RegEx.new()
 	var res
-	print("<<< " + message)
+	#print("<<< " + message)
 	re.compile("^PING")
 	if (re.search(message)):
 		netsend("PONG :StreamCats")	
@@ -369,8 +383,10 @@ func dir_contents(path):
 func _on_avatar_imported(path):
 	load_avatar(path)
 	$Popup/Menu.set_avatars(Avatars.keys())
+	$Popup/Menu.set_avatar(Database.SelectedAvatars)
 
 func import_avatar(path):
+	
 	var zip = ZIPReader.new()
 	var err = zip.open(path)
 	if (err != OK):

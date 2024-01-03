@@ -5,6 +5,8 @@ signal connect_pressed
 signal disconnect_pressed
 signal avatar_imported
 
+var currentImportPath = null
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -33,27 +35,35 @@ func set_autoconnect(a):
 	$IRCAutoConnect.button_pressed = a
 
 func set_name_timeout(t):
-	$Name/Timeout.get_line_edit().text = str(t)
+	$Timeouts/Name/Timeout.value = t
 
 func set_cat_timeout(t):
-	$Cat/Timeout.get_line_edit().text = str(t)
+	$Timeouts/Cat/Timeout.value = t
 
 func set_attacks(a):
 	$Attacks.button_pressed = a
 
 func set_avatars(alist):
-	$Avatar/Sel.clear()
+	for c in $Avatars/S/B.get_children():
+		$Avatars/S/B.remove_child(c)
+		c.queue_free()
 	
 	for a in alist:
-		$Avatar/Sel.add_item(a)
+		var cb = CheckButton.new()
+		cb.text = a
+		$Avatars/S/B.add_child(cb)
 
 func set_avatar(a):
-	for i in $Avatar/Sel.item_count:
-		if ($Avatar/Sel.get_item_text(i) == a):
-			$Avatar/Sel.selected = i
+	
+	for av in $Avatars/S/B.get_children():
+		av.button_pressed = a.has(av.text)
 
 func get_avatar():
-	return $Avatar/Sel.get_item_text($Avatar/Sel.selected)
+	var out = []
+	for av in $Avatars/S/B.get_children():
+		if av.button_pressed:
+			out.append(av.text)
+	return out
 
 func get_username():
 	return $Username/IRCUsername.text
@@ -74,13 +84,14 @@ func get_autoconnect():
 	return $IRCAutoConnect.button_pressed
 
 func get_name_timeout():
-	return int($Name/Timeout.get_line_edit().text)
+	return $Timeouts/Name/Timeout.value
 
 func get_cat_timeout():
-	return int($Cat/Timeout.get_line_edit().text)
-
+	return $Timeouts/Cat/Timeout.value
+	
 func get_attacks():
 	return $Attacks.button_pressed
+
 
 func _on_ok_pressed():
 	close_menu.emit()
@@ -98,13 +109,28 @@ func _on_import_pressed():
 	print("Import Pressed")
 	var fd = FileDialog.new()
 	fd.add_filter("*.Avatar")
-	fd.file_mode = FileDialog.FILE_MODE_OPEN_FILE
+	fd.file_mode = FileDialog.FILE_MODE_OPEN_FILES
 	fd.access = FileDialog.ACCESS_FILESYSTEM
+	if (currentImportPath != null):
+		fd.current_path = currentImportPath
+		fd.current_dir = currentImportPath
+		fd.current_file = currentImportPath
+		print(currentImportPath)
 	fd.file_selected.connect(_on_do_import)
+	fd.files_selected.connect(_on_do_import_many)
 	add_child(fd)
 	fd.popup_centered_ratio()
 
+func _on_do_import_many(paths):
+	for path in paths:
+		_on_do_import(path)
+		
 func _on_do_import(path):
+	var parts = path.split("/")
+	parts.remove_at(parts.size()-1)
+	currentImportPath = ""
+	for part in parts:
+		currentImportPath += part + "/"
 	var zip = ZIPReader.new()
 	var err = zip.open(path)
 	if (err != OK):

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=16 format=3 uid="uid://b8ds072ddd3yk"]
+[gd_resource type="Theme" load_steps=18 format=3 uid="uid://b8ds072ddd3yk"]
 
 [ext_resource type="Texture2D" uid="uid://c3svpdfhsjwkj" path="res://Sprites/checked.png" id="1_6mqjv"]
 [ext_resource type="FontFile" uid="uid://74v75p3j8561" path="res://Fonts/C64_Pro-STYLE.ttf" id="1_j1qy7"]
@@ -133,6 +133,10 @@ expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 anti_aliasing = false
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cec6o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vh3ic"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0mb6r"]
 bg_color = Color(0.403922, 0.662745, 0.572549, 1)
 border_color = Color(0.294118, 0.592157, 0.360784, 1)
@@ -197,6 +201,10 @@ CheckBox/styles/hover = SubResource("StyleBoxFlat_gency")
 CheckBox/styles/hover_pressed = SubResource("StyleBoxFlat_8cy61")
 CheckBox/styles/normal = SubResource("StyleBoxFlat_r1foh")
 CheckBox/styles/pressed = SubResource("StyleBoxFlat_labva")
+CheckButton/font_sizes/font_size = 12
+CheckButton/fonts/font = ExtResource("1_j1qy7")
+CheckButton/styles/hover = SubResource("StyleBoxEmpty_cec6o")
+CheckButton/styles/hover_pressed = SubResource("StyleBoxEmpty_vh3ic")
 Label/colors/font_color = Color(0.694118, 0.490196, 0.301961, 1)
 LineEdit/colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 LineEdit/styles/focus = SubResource("StyleBoxFlat_0mb6r")
