@@ -124,6 +124,7 @@ func _input(event):
 			$Popup/Menu.set_name_timeout(Database.NameTimeout)
 			$Popup/Menu.set_cat_timeout(Database.CatTimeout)
 			$Popup/Menu.set_attacks(Database.AttacksEnabled)
+			$Popup/Menu.set_commands(Database.CommandsEnabled)
 			$Popup/Menu.set_avatar(Database.SelectedAvatars)
 			$Popup.show()
 
@@ -137,6 +138,7 @@ func _on_close_menu():
 	Database.NameTimeout = $Popup/Menu.get_name_timeout()
 	Database.CatTimeout = $Popup/Menu.get_cat_timeout()
 	Database.AttacksEnabled = $Popup/Menu.get_attacks()
+	Database.CommandsEnabled = $Popup/Menu.get_commands()
 	Database.SelectedAvatars = $Popup/Menu.get_avatar()
 	
 	for a in Database.Avatars.keys():
@@ -207,7 +209,8 @@ func get_avatar(username:String, data):
 		return a
 
 func run_command(avatar, command):
-	#return
+	if ! Database.CommandsEnabled:
+		return
 	var argv = command.split(" ")
 	argv[0] = argv[0].to_lower()
 	match argv[0].to_lower():

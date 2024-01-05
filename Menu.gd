@@ -42,6 +42,9 @@ func set_cat_timeout(t):
 
 func set_attacks(a):
 	$Attacks.button_pressed = a
+	
+func set_commands(c):
+	$Commands.button_pressed = c
 
 func set_avatars(alist):
 	for c in $Avatars/S/B.get_children():
@@ -92,6 +95,8 @@ func get_cat_timeout():
 func get_attacks():
 	return $Attacks.button_pressed
 
+func get_commands():
+	return $Commands.button_pressed
 
 func _on_ok_pressed():
 	close_menu.emit()
