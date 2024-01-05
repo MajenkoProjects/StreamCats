@@ -1,7 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://cmdir5y805d2x"]
+[gd_scene load_steps=6 format=3 uid="uid://cmdir5y805d2x"]
 
+[ext_resource type="Script" path="res://AvatarNameCollision.gd" id="3_mm0eh"]
 [ext_resource type="Script" path="res://Avatar.gd" id="13_2chrl"]
 [ext_resource type="Theme" uid="uid://do2ejls6cuihn" path="res://NekoTheme.tres" id="27_7m6rv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vnxul"]
+size = Vector2(92, 12)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ro7uc"]
 
@@ -36,6 +40,13 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
+[node name="Area2D" type="Area2D" parent="Name"]
+script = ExtResource("3_mm0eh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Name/Area2D"]
+position = Vector2(46, 6)
+shape = SubResource("RectangleShape2D_vnxul")
+
 [node name="Neko" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ro7uc")
 
@@ -56,4 +67,6 @@ show_percentage = false
 [connection signal="timeout" from="SuicideTimer" to="." method="_on_suicide_timer_timeout"]
 [connection signal="timeout" from="FightTimer" to="." method="_on_fight_timer_timeout"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="area_entered" from="Name/Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Name/Area2D" to="." method="_on_area_2d_area_exited"]
 [connection signal="animation_finished" from="Neko" to="." method="_on_neko_animation_finished"]

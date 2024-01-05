@@ -81,6 +81,7 @@ func _process(_delta):
 			dataQueueString = right
 			
 			process_message(left)
+		
 
 func _on_avatar_died(_av):
 	pass
@@ -206,6 +207,7 @@ func get_avatar(username:String, data):
 		return a
 
 func run_command(avatar, command):
+	return
 	var argv = command.split(" ")
 	argv[0] = argv[0].to_lower()
 	match argv[0].to_lower():
@@ -220,11 +222,14 @@ func run_command(avatar, command):
 				alist += "\""
 			netsend("PRIVMSG " + Database.Channel + " :Available avatars: " + alist)
 		"!avatar":
-			if ! Database.SelectedAvatars.has(argv[1]):
-				netsend("PRIVMSG " + Database.Channel + " :Sorry, @" + avatar.getName() + ", that avatar is unknown.")
-				return
-			Database.WhichAvatar[avatar.getName()] = argv[1]
-			avatar.set_sprite_frames(Avatars[argv[1]])
+			if (argv.size() > 1):
+				if ! Database.SelectedAvatars.has(argv[1]):
+					netsend("PRIVMSG " + Database.Channel + " :Sorry, @" + avatar.getName() + ", that avatar is unknown.")
+					return
+				Database.WhichAvatar[avatar.getName()] = argv[1]
+				avatar.set_sprite_frames(Avatars[argv[1]])
+			else:
+				privmsg("@" + avatar.getName() + " Please tell me which avatar to select. Use !avatars to list them.")
 		"!sleep":
 			avatar.sleep()
 		"!wake":

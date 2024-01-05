@@ -20,6 +20,7 @@ var miscData = {}
 var username = ""
 
 var alive = false
+var labelHeight = 0
 
 enum {
 	MODE_SIT,
@@ -55,12 +56,14 @@ func _process(delta):
 	if (!alive):
 		return
 		
+	$Name.position.y = 0 - 32 - labelHeight
+		
 	var vps = get_viewport_rect().size
 	position.x += direction * delta * speed
 	if (lift < 0):
 		lift = 0
 	position.y = int(vps.y) - 16 - int(lift)
-		
+	
 	var r = randi() % 100
 	
 	match mode:
@@ -144,6 +147,8 @@ func _process(delta):
 			pass
 
 func _on_name_timer_timeout():
+	$Name/Area2D.monitoring = false
+	labelHeight = 0
 	$Name.visible = 0
 
 func setName(avatarName):
@@ -164,6 +169,7 @@ func set_alive(a):
 	visible = a
 	
 func prod(nt:int, ct:int):
+	$Name/Area2D.monitoring = true
 	$Name.visible = 1
 	$NameTimer.start(nt)
 	$SuicideTimer.start(ct)
@@ -286,3 +292,19 @@ func setData(d):
 func set_sprite_frames(f):
 	$Neko.set_sprite_frames(f)
 	
+func set_label_height(h):
+	labelHeight = h
+
+func label_is_colliding():
+	pass
+
+func _on_area_2d_area_entered(area):
+	if area.monitoring == false:
+		return
+	print(getName() + " collided with " + area.getAvatarName())
+	if area.getAvatarName() > getName():
+		labelHeight += 16
+	pass # Replace with function body.
+
+func _on_area_2d_area_exited(area):
+	pass # Replace with function body.
