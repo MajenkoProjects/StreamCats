@@ -5,7 +5,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_axa1a"]
 content_margin_left = 8.0
 content_margin_right = 8.0
-bg_color = Color(1, 1, 1, 0.266667)
+bg_color = Color(0.67451, 0.67451, 0.67451, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8

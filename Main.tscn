@@ -19,8 +19,8 @@ size = Vector2i(960, 540)
 [node name="Menu" parent="Popup" instance=ExtResource("2_p7b8j")]
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 956.0
-offset_bottom = 536.0
+offset_right = -4.0
+offset_bottom = -4.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 

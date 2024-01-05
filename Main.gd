@@ -111,7 +111,9 @@ func _on_save_timer_timeout():
 func _input(event):
 	if (event is InputEventKey):
 		if (event.pressed and event.keycode == KEY_ESCAPE):
-			$Popup/Menu.set_avatars(Avatars.keys())
+			var avs = Avatars.keys()
+			avs.sort()
+			$Popup/Menu.set_avatars(avs)
 			$Popup/Menu.set_username(Database.Username)
 			$Popup/Menu.set_password(Database.Password)
 			$Popup/Menu.set_hostname(Database.Server)
@@ -206,7 +208,8 @@ func get_avatar(username:String, data):
 func run_command(avatar, command):
 	var argv = command.split(" ")
 	argv[0] = argv[0].to_lower()
-	match argv[0]:
+	match argv[0].to_lower():
+
 		"!avatars":
 			var alist = ""
 			for a in Database.SelectedAvatars:
@@ -382,7 +385,9 @@ func dir_contents(path):
 
 func _on_avatar_imported(path):
 	load_avatar(path)
-	$Popup/Menu.set_avatars(Avatars.keys())
+	var avs = Avatars.keys()
+	avs.sort()
+	$Popup/Menu.set_avatars(avs)
 	$Popup/Menu.set_avatar(Database.SelectedAvatars)
 
 func import_avatar(path):
@@ -406,3 +411,8 @@ func import_avatar(path):
 		var outfile = FileAccess.open(outname, FileAccess.WRITE)
 		outfile.store_buffer(infile)
 		outfile.close()
+
+
+
+func privmsg(msg):
+	netsend("PRIVMSG " + Database.Channel + " :" + msg)
