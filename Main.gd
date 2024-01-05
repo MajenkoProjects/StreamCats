@@ -207,7 +207,7 @@ func get_avatar(username:String, data):
 		return a
 
 func run_command(avatar, command):
-	return
+	#return
 	var argv = command.split(" ")
 	argv[0] = argv[0].to_lower()
 	match argv[0].to_lower():
